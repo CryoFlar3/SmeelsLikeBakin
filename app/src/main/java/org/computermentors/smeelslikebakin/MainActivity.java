@@ -28,5 +28,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnRe
     @Override
     public void onListRecipeSelected(int index) {
         Toast.makeText(this, Recipes.names[index], Toast.LENGTH_LONG).show();
+        ViewPageFragment fragment = new ViewPageFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.placeHolder, fragment);
+        fragmentTransaction.commit();
     }
 }
