@@ -6,7 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnRecipeSelectedInterface {
+public class MainActivity extends AppCompatActivity
+        implements ListFragment.OnRecipeSelectedInterface, GridFragment.OnRecipeSelectedInterface{
     public static final String LIST_FRAGMENT = "list_fragment";
     public static final String VIEWPAGER_FRAGMENT = "viewpager_fragment";
 
@@ -14,14 +15,25 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnRe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        boolean isTablet = getResources().getBoolean(R.bool.is_tablet);
+        if (!isTablet) {
+            ListFragment savedFragment = (ListFragment) getSupportFragmentManager().findFragmentByTag(LIST_FRAGMENT);
+            if (savedFragment == null) {
+                ListFragment fragment = new ListFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.placeHolder, fragment, LIST_FRAGMENT);
+                fragmentTransaction.commit();
+            }
+        } else {
+            GridFragment savedFragment = (GridFragment) getSupportFragmentManager().findFragmentByTag(LIST_FRAGMENT);
+            if (savedFragment == null) {
+                GridFragment fragment = new GridFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.add(R.id.placeHolder, fragment, LIST_FRAGMENT);
+                fragmentTransaction.commit();
 
-        ListFragment savedFragment = (ListFragment) getSupportFragmentManager().findFragmentByTag(LIST_FRAGMENT);
-        if (savedFragment == null) {
-            ListFragment fragment = new ListFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.placeHolder, fragment, LIST_FRAGMENT);
-            fragmentTransaction.commit();
         }
 
     }

@@ -10,22 +10,22 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ListFragment extends Fragment {
+public class GridFragment extends Fragment {
 
     public interface OnRecipeSelectedInterface{
-        void onListRecipeSelected(int index);
+        void onGridRecipeSelected(int index);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        OnRecipeSelectedInterface listener = (OnRecipeSelectedInterface) getActivity();
+        ListFragment.OnRecipeSelectedInterface listener = (ListFragment.OnRecipeSelectedInterface) getActivity();
         View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        ListAdapter listAdapter = new ListAdapter(listener);
-        recyclerView.setAdapter(listAdapter);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        GridAdapter gridAdapter = new GridAdapter(listener);
+        recyclerView.setAdapter(gridAdapter);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), numColums);
         recyclerView.setLayoutManager(layoutManager);
 
         return view;
