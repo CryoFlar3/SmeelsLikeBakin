@@ -1,15 +1,6 @@
 package org.computermentors.smeelslikebakin;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class ListAdapter extends RecyclerView.Adapter {
+public class ListAdapter extends RecyclerAdapter {
 
     private final ListFragment.OnRecipeSelectedInterface listener;
 
@@ -17,45 +8,14 @@ public class ListAdapter extends RecyclerView.Adapter {
         this.listener = listener;
     }
 
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-        return new ListViewHolder(view);
+    protected int getLayoutId() {
+        return R.layout.list_item;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ListViewHolder) holder).bindView(position);
+    protected void onRecipeSelected(int index) {
+        listener.onListRecipeSelected(index);
     }
 
-    @Override
-    public int getItemCount() {
-        return Recipes.names.length;
-    }
-
-    private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-
-        private TextView textView;
-        private ImageView imageView;
-        private int index;
-
-        public ListViewHolder(@NonNull View itemView) {
-            super(itemView);
-            textView = itemView.findViewById(R.id.itemText);
-            imageView = itemView.findViewById(R.id.itemImage);
-            itemView.setOnClickListener(this);
-        }
-
-        public void bindView(int position){
-            index = position;
-            textView.setText(Recipes.names[position]);
-            imageView.setImageResource(Recipes.resourceIds[position]);
-        }
-
-        @Override
-        public void onClick(View view) {
-            listener.onListRecipeSelected(index);
-        }
-    }
 }

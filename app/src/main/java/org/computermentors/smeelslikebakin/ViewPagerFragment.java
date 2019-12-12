@@ -5,13 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.tabs.TabLayout;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-
-import com.google.android.material.tabs.TabLayout;
 
 public class ViewPagerFragment extends Fragment {
 
@@ -25,10 +25,10 @@ public class ViewPagerFragment extends Fragment {
         getActivity().setTitle(Recipes.names[index]);
         View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
 
-        final IngredientsFragments ingredientsFragments = new IngredientsFragments();
+        final IngredientsFragment ingredientsFragment = new IngredientsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_RECIPE_INDEX, index);
-        ingredientsFragments.setArguments(bundle);
+        ingredientsFragment.setArguments(bundle);
         final DirectionsFragment directionsFragment = new DirectionsFragment();
         bundle = new Bundle();
         bundle.putInt(KEY_RECIPE_INDEX, index);
@@ -38,7 +38,7 @@ public class ViewPagerFragment extends Fragment {
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return position == 0 ? ingredientsFragments : directionsFragment;
+                return position == 0 ? ingredientsFragment : directionsFragment;
             }
 
             @Nullable

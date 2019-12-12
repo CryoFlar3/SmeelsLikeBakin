@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.placeHolder, fragment, LIST_FRAGMENT);
                 fragmentTransaction.commit();
+            }
 
         }
 
@@ -41,6 +42,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onListRecipeSelected(int index) {
         ViewPagerFragment fragment = new ViewPagerFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ViewPagerFragment.KEY_RECIPE_INDEX, index);
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.placeHolder, fragment, VIEWPAGER_FRAGMENT);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onGridRecipeSelected(int index) {
+        DualPaneFragment fragment = new DualPaneFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ViewPagerFragment.KEY_RECIPE_INDEX, index);
         fragment.setArguments(bundle);

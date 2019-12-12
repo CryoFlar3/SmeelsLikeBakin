@@ -1,6 +1,6 @@
 package org.computermentors.smeelslikebakin;
 
-public class IngredientsFragments extends CheckBoxesFragments{
+public class IngredientsFragment extends CheckBoxesFragments{
     @Override
     public String[] getContents(int index) {
         return Recipes.ingredients[index].split("`");
